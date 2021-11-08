@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import {Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class Dish extends Component {
     constructor(props) {
@@ -7,6 +7,7 @@ class Dish extends Component {
         this.state={};
     }
     renderDish(dish){
+        if(dish)
        return( <Card>
         <CardImg top src={dish.image} alt={dish.name} />
         <CardBody>
@@ -22,7 +23,7 @@ class Dish extends Component {
                 return(
                     <div key ={comment.id}>
                         <p>{comment.comment} </p>
-                        <p>--{comment.author}, {new Date(comment.date).toDateString()} </p>
+                        <p>--{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))/*new Date(comment.date).toDateString()*/} </p>
                     </div>
             )       
         })
@@ -40,7 +41,8 @@ class Dish extends Component {
 
     render(){
       const  dish=this.props.dish;
-       
+      console.log(this.props.dish)
+       if (dish)
         return(
             <div className="row">
                 <div className='col-12 col-md-5 m-1'>
@@ -48,7 +50,6 @@ class Dish extends Component {
             </div>
 
             <div className='col-12 col-md-5 m-1'>
-                
                 <div>
                 <ul className = "list-unstyled">
                     {this.renderComments(dish.comments)}
@@ -58,6 +59,7 @@ class Dish extends Component {
 
             </div>
         )
+        else return null
     }
 }
 export default Dish;
