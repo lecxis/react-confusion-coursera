@@ -36,7 +36,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
            }
            handleSubmit(values) {
             console.log('Current State is: ' + JSON.stringify(values));
-            this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
+            this.props.postComment(this.props.dishId, values.rating, values.name, values.comment);
             // alert('Current State is: ' + JSON.stringify(values));
             //event.preventDefault();
         }
@@ -114,7 +114,7 @@ function RenderDish({ dish }) {
       </Card>
     );
 }
-function RenderComments({ comment, addComment, dishId }) {
+function RenderComments({ comment, postComment, dishId }) {
   if (comment.length >= 1) {
     let comm = comment.map((comment) => {
       //let dat= new Date().toDateString();
@@ -140,7 +140,7 @@ function RenderComments({ comment, addComment, dishId }) {
       <div>
         <h4> Comments</h4>
         {comm}
-        <CommentForm dishId={dishId} addComment={addComment}/>
+        <CommentForm dishId={dishId} postComment={postComment}/>
 
       </div>
     );
@@ -190,7 +190,7 @@ function Dish (props) {
           <div>
             <ul className="list-unstyled">
               <RenderComments comment={props.comments}
-               addComment={props.addComment}
+               postComment={props.postComment}
                dishId={props.dish.id}/>
             </ul>
           </div>
